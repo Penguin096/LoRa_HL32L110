@@ -1,6 +1,6 @@
 # LoRa_HL32L110
 
-## For E32-900T30D 
+## Suitable for E32-900T30D 
 (HL32L110 + SX1276)
 
 * P14 -> NSS

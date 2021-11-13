@@ -6,11 +6,7 @@
  * Include files
  *****************************************************************************/
 #include "spi.h"
-   
-#ifdef __DEBUG   
-#include "uart.h"
-#endif
-   
+     
 #ifdef __cplusplus
 extern "C"
 {
@@ -23,14 +19,16 @@ extern "C"
 #define LORA_RESET_PORT                 3
 #define LORA_RESET_PIN                  2
 
+#define PA_OUTPUT_RFO_PIN               0
+#define PA_OUTPUT_PA_BOOST_PIN          1
 
-#define PA_OUTPUT_RFO_PIN          0
-#define PA_OUTPUT_PA_BOOST_PIN     1
+#ifdef __cplusplus
+#endif
 
-    int LoRabegin(long frequency);
+    uint8_t LoRabegin(long frequency);
     void LoRaend();
 
-    int LoRabeginPacket(int implicitHeader);
+    boolean_t LoRabeginPacket(boolean_t implicitHeader);
     int LoRaendPacket(boolean_t async);
 
     int LoRaparsePacket(int size);
@@ -47,9 +45,6 @@ extern "C"
     int LoRaavailable();
     int LoRaread();
     int LoRapeek();
-
-    void LoRaonReceive(void(*callback)(int));
-    void LoRaonTxDone(void(*callback)());
 
     void LoRareceive(int size);
 
@@ -79,12 +74,9 @@ extern "C"
     int LoRarandom();
    
     void LoRaSetOpMode( uint8_t opMode );
-
-//extern LoRaClass LoRa;
-
-#ifdef __cplusplus
-#endif
-
+    uint8_t LoRareadRegister(uint8_t address);
+    void LoRawriteRegister(uint8_t address, uint8_t value);
+  
 #endif /* __UART_H__ */
 /******************************************************************************
  * EOF (not truncated)

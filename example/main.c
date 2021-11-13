@@ -45,7 +45,12 @@ int32_t main(void)
     if (!LoRabegin(868E6)) {
       while (1);
     }
-    
+
+    LoRasetTxPower(TX_OUTPUT_POWER, PA_OUTPUT_PA_BOOST_PIN);
+    LoRasetSpreadingFactor(LORA_SPREADING_FACTOR);
+    LoRasetSignalBandwidth(LORA_BANDWIDTH);
+    LoRasetCodingRate4(LORA_CODINGRATE);
+
     while (1)
     {
               

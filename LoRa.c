@@ -81,7 +81,7 @@
     void (*_onReceive)(int);
     void (*_onTxDone)();
 
-int LoRabegin(long frequency)
+uint8_t LoRabegin(long frequency)
 {
     Gpio_InitIOExt(LORA_CTRL_PORT, LORA_NCTRL_PIN, GpioDirOut, TRUE, FALSE, FALSE, FALSE); //NCTRL
     Gpio_InitIOExt(LORA_CTRL_PORT, LORA_CTRL_PIN, GpioDirOut, TRUE, FALSE, FALSE, FALSE); //CTRL
@@ -165,20 +165,9 @@ void LoRaend()
     Spi_DeInit();
 }
 
-int LoRabeginPacket(int implicitHeader)
+boolean_t LoRabeginPacket(boolean_t implicitHeader)
 {
     if (LoRaisTransmitting()) {
-#ifdef __DEBUG
-      uint16_t i=0;    
-      char s [] = "isTransmitting!";
-      while(i<strlen(s))
-      {
-        Uart_SendData(UARTCH0,s[i]);
-        i++;
-      }
-      Uart_SendData(UARTCH0,0x0D);
-      Uart_SendData(UARTCH0,0x0A);
-#endif
       return 0;
     }
 
@@ -366,30 +355,6 @@ int LoRapeek()
     LoRawriteRegister(REG_FIFO_ADDR_PTR, currentAddress);
 
     return b;
-}
-
-void LoRaonReceive(void(*callback)(int))
-{
-    _onReceive = callback;
-
-    if (callback) {
-  //    pinMode(_dio0, INPUT);
-  //    attachInterrupt(digitalPinToInterrupt(_dio0), LoRaClass::onDio0Rise, RISING);
-    } else {
-  //    detachInterrupt(digitalPinToInterrupt(_dio0));
-    }
-}
-
-void LoRaonTxDone(void(*callback)())
-{
-    _onTxDone = callback;
-
-    if (callback) {
-//      pinMode(_dio0, INPUT);
-//      attachInterrupt(digitalPinToInterrupt(_dio0), LoRaClass::onDio0Rise, RISING);
-    } else {
-//      detachInterrupt(digitalPinToInterrupt(_dio0));
-    }
 }
 
 void LoRareceive(int size)

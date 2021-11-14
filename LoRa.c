@@ -269,7 +269,7 @@ int LoRaparsePacket(int size)
     return packetLength;
 }
 
-int LoRapacketRssi()
+int16_t LoRapacketRssi()//dBm
 {
     return (LoRareadRegister(REG_PKT_RSSI_VALUE) - (_frequency < RF_MID_BAND_THRESHOLD ? RSSI_OFFSET_LF_PORT : RSSI_OFFSET_HF_PORT));
 }
@@ -540,6 +540,11 @@ void LoRasetPreambleLength(long length)
 {
     LoRawriteRegister(REG_PREAMBLE_MSB, (uint8_t)(length >> 8));
     LoRawriteRegister(REG_PREAMBLE_LSB, (uint8_t)(length >> 0));
+}
+
+void LoRasetSyncWord(int sw)
+{
+  LoRawriteRegister(REG_SYNC_WORD, sw);
 }
 
 void LoRaenableCrc()

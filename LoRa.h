@@ -32,7 +32,7 @@ extern "C"
     int LoRaendPacket(boolean_t async);
 
     int LoRaparsePacket(int size);
-    int LoRapacketRssi();
+    int16_t LoRapacketRssi();
     float LoRapacketSnr();
     long LoRapacketFrequencyError();
 
@@ -58,24 +58,16 @@ extern "C"
     void LoRasetCodingRate4(int denominator);
     void LoRasetPreambleLength(long length);
     void LoRasetSyncWord(int sw);
+    void LoRasetOCP(uint8_t mA); // Over Current Protection control
+    void LoRasetGain(uint8_t gain); // Set LNA gain   
+    void LoRaSetOpMode( uint8_t opMode );
+    
     void LoRaenableCrc();
     void LoRadisableCrc();
     void LoRaenableInvertIQ();
     void LoRadisableInvertIQ();
-    
-    void LoRasetOCP(uint8_t mA); // Over Current Protection control
-    
-    void LoRasetGain(uint8_t gain); // Set LNA gain
-
-    // deprecated
-    void LoRaenableCrc();
-    void LoRadisableCrc();
 
     int LoRarandom();
-   
-    void LoRaSetOpMode( uint8_t opMode );
-    uint8_t LoRareadRegister(uint8_t address);
-    void LoRawriteRegister(uint8_t address, uint8_t value);
   
 #endif /* __UART_H__ */
 /******************************************************************************

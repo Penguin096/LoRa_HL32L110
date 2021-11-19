@@ -1,6 +1,6 @@
 // Copyright (c) Penguin096. All rights reserved.
 
-#include <D:\Users\Pavel\Documents\GitHub\LoRa_HL32L110\LoRa.h>
+#include <LoRa.h>
 
 // registers
 #define REG_FIFO                 0x00

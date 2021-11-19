@@ -1,6 +1,6 @@
 // Copyright (c) Penguin096. All rights reserved.
 
-#include <LoRa.h>
+#include <D:\Users\Pavel\Documents\GitHub\LoRa_HL32L110\LoRa.h>
 
 // registers
 #define REG_FIFO                 0x00
@@ -386,13 +386,11 @@ void LoRasleep()
     LoRawriteRegister(REG_OP_MODE, MODE_LONG_RANGE_MODE | MODE_SLEEP);
 }       
 
-void LoRasetTxPower(int level, int outputPin)
+void LoRasetTxPower(uint8_t level, int outputPin)
 {
     if (PA_OUTPUT_RFO_PIN == outputPin) {
       // RFO
-      if (level < 0) {
-        level = 0;
-      } else if (level > 14) {
+      if (level > 14) {
         level = 14;
       }
       
@@ -439,7 +437,7 @@ int LoRagetSpreadingFactor()
     return LoRareadRegister(REG_MODEM_CONFIG_2) >> 4;
 }
 
-void LoRasetSpreadingFactor(int sf)
+void LoRasetSpreadingFactor(uint8_t sf)
 {
     if (sf < 6) {
       sf = 6;
@@ -479,29 +477,15 @@ long LoRagetSignalBandwidth()
   return -1;
 }
 
-void LoRasetSignalBandwidth(long sbw)
+void LoRasetSignalBandwidth(uint16_t sbw)
 {
   int bw;
-
-  if (sbw <= 7.8E3) {
-    bw = 0;
-  } else if (sbw <= 10.4E3) {
-    bw = 1;
-  } else if (sbw <= 15.6E3) {
-    bw = 2;
-  } else if (sbw <= 20.8E3) {
-    bw = 3;
-  } else if (sbw <= 31.25E3) {
-    bw = 4;
-  } else if (sbw <= 41.7E3) {
-    bw = 5;
-  } else if (sbw <= 62.5E3) {
-    bw = 6;
-  } else if (sbw <= 125E3) {
+  
+  if (sbw <= 125) {
     bw = 7;
-  } else if (sbw <= 250E3) {
+  } else if (sbw <= 250) {
     bw = 8;
-  } else /*if (sbw <= 250E3)*/ {
+  } else /*if (sbw <= 500)*/ {
     bw = 9;
   }
 
@@ -523,7 +507,7 @@ void LoRasetLdoFlag()
     LoRawriteRegister(REG_MODEM_CONFIG_3, config3);
 }
 
-void LoRasetCodingRate4(int denominator)
+void LoRasetCodingRate4(uint8_t denominator)
 {
     if (denominator < 5) {
       denominator = 5;

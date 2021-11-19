@@ -37,7 +37,10 @@ extern "C"
     long LoRapacketFrequencyError();
 
     int LoRarssi();
-
+    
+    uint8_t LoRareadRegister(uint8_t address);
+    void LoRawriteRegister(uint8_t address, uint8_t value);
+    
     // from Print
     size_t LoRawrite(const uint8_t *buffer, size_t size);
 
@@ -51,11 +54,11 @@ extern "C"
     void LoRaidle();
     void LoRasleep();
 
-    void LoRasetTxPower(int level, int outputPin);
+    void LoRasetTxPower(uint8_t level, int outputPin);
     void LoRasetFrequency(long frequency);
-    void LoRasetSpreadingFactor(int sf);
-    void LoRasetSignalBandwidth(long sbw);
-    void LoRasetCodingRate4(int denominator);
+    void LoRasetSpreadingFactor(uint8_t sf);
+    void LoRasetSignalBandwidth(uint16_t sbw);
+    void LoRasetCodingRate4(uint8_t denominator);
     void LoRasetPreambleLength(long length);
     void LoRasetSyncWord(int sw);
     void LoRasetOCP(uint8_t mA); // Over Current Protection control
